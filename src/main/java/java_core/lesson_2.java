@@ -1,5 +1,10 @@
 package java_core;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
+import java.util.Arrays;
+import java.util.jar.JarOutputStream;
+
 public class lesson_2 {
 
     public static void main(String[] args) {
@@ -13,6 +18,7 @@ public class lesson_2 {
         int[] testArrEx1 = {1, 1, 0, 0, 1, 0, 1, 0, 1, 1};
         int[] testArrEx1_1 = {1, 1, 1, 1, 0, 0, 0, 0, 1, 0};
         exercise_1(testArrEx1);
+        System.out.println();
         exercise_1(testArrEx1_1);
 
         // exercise 2
@@ -40,38 +46,21 @@ public class lesson_2 {
         exercise_6(testArr2);
         exercise_6(testArr4);
 
-        // exercise 7
-        System.out.println("\n\nExercise 7");
-        exercise_7(testArr, 3);
-
-        for (int c : testArr) {
-            System.out.print(c + ", ");
-        }
+//        exercise 7
+//        System.out.println("\n\nExercise 7");
+//        exercise_7(testArr, 3);
     }
 
     public static void exercise_1(int[] arr_in) {
-        System.out.print("Given array [");
-        String resultMessage = "Result array [";
-
+        System.out.println("Given array " + Arrays.toString(arr_in));
         for (int i = 0; i < arr_in.length; ++i) {
-            System.out.print(arr_in[i]);
-
             if (arr_in[i] == 0) {
                 arr_in[i] = 1;
             } else {
                 arr_in[i] = 0;
             }
-
-            resultMessage += arr_in[i];
-
-            if (i != arr_in.length - 1) {
-                System.out.print(", ");
-                resultMessage += ", ";
-            }
         }
-        System.out.print("]\n");
-        resultMessage += "]\n";
-        System.out.println(resultMessage);
+        System.out.println("Result array " + Arrays.toString(arr_in));
     }
 
     public static void exercise_2() {
@@ -81,7 +70,7 @@ public class lesson_2 {
             arr[j] = i;
         }
 
-        PrintArray(arr);
+        System.out.println("Result array " + Arrays.toString(arr));
     }
 
     public static void exercise_3() {
@@ -94,7 +83,7 @@ public class lesson_2 {
             }
         }
 
-        PrintArray(arr);
+        System.out.println("Result array " + Arrays.toString(arr));
     }
 
     public static void exercise_4(int size_in) {
@@ -106,29 +95,18 @@ public class lesson_2 {
             arr[i][j] = 1;
         }
 
-        System.out.println("Result matrix " + size_in + "x" + size_in + "size: ");
-        for (int i = 0; i < size_in; ++i) {
-            System.out.print("[");
-            for (int j = 0; j < size_in; ++j) {
-                System.out.print(arr[i][j]);
-                if (j != size_in - 1) {
-                    System.out.print(", ");
-                }
-            }
-            System.out.println("]");
+        System.out.println("Result matrix " + size_in + "x" + size_in + " size: ");
+        for (int[] row : arr) {
+            System.out.println(Arrays.toString(row));
         }
     }
 
     public static void exercise_5(int[] arr_in) {
-        System.out.print("Searching maximum in array [");
+        System.out.print("Searching maximum in array " + Arrays.toString(arr_in));
         int min = arr_in[0];
         int max = arr_in[0];
 
         for (int current : arr_in) {
-            System.out.print(current);
-            if (current != arr_in[arr_in.length - 1]) {
-                System.out.print(", ");
-            }
             if (min > current) {
                 min = current;
             }
@@ -136,45 +114,37 @@ public class lesson_2 {
                 max = current;
             }
         }
-
-        System.out.print("]\n");
         System.out.println("Minimum is " + min);
         System.out.println("Maximum is " + max);
     }
 
     public static boolean exercise_6(int[] arr_in) {
-        System.out.print("Searching if an array balanced in array [");
+        System.out.println("Searching if an array balanced in array " + Arrays.toString(arr_in));
         int sum = 0, sum_of_previous = 0;
-        boolean result = false;
+        boolean isBalanced = false;
         for (int current : arr_in) {
             sum += current;
-            System.out.print(current);
-            if (current != arr_in[arr_in.length - 1]) {
-                System.out.print(", ");
-            }
         }
-        System.out.println(']');
 
         for (int i = 0; i < arr_in.length; ++i) {
             sum -= arr_in[i];
             sum_of_previous += arr_in[i];
 
             if (sum == sum_of_previous) {
-                result = true;
+                isBalanced = true;
                 break;
             }
         }
 
-        System.out.print("Array is ");
-        if (result) {
-            System.out.println("balanced");
-        } else {
-            System.out.println("not balanced");
-        }
+        String isBalansedStr = isBalanced ? "balanced" : "not balanced";
+        System.out.println("Array is " + isBalansedStr);
 
-        return result;
+        return isBalanced;
     }
 
+    /*  Warning
+    * Code doesn't work correctly
+    * */
     public static void exercise_7(int[] arr_in, int shift) {
         for (int j = 0; j < shift; j++) {
             int tmp = arr_in[0];
@@ -191,16 +161,5 @@ public class lesson_2 {
 
             arr_in[i] = tmp;
         }
-    }
-
-    private static void PrintArray(int[] arr) {
-        System.out.print("Result array [");
-        for (int i = 0; i < arr.length; ++i) {
-            System.out.print(arr[i]);
-            if (i != arr.length - 1) {
-                System.out.print(", ");
-            }
-        }
-        System.out.print("]\n");
     }
 }
