@@ -8,149 +8,76 @@ public abstract class Animal {
 
     private boolean canSwim;
     private int maxSwimDistance;
-    private int minSwimDistance;
-    private int userSetSwimDistance;
 
     private boolean canRun;
     private int maxRunDistance;
-    private int minRunDistance;
-    private int userSetRunDistance;
 
     private boolean canFly;
     private int maxFlyDistance;
-    private int minFlyDistance;
-    private int userSetFlyDistance;
     //</editor-fold>
 
     private static int count;
 
-    protected Animal(String name, boolean canRun, boolean canSwim, boolean canFly) {
+    protected Animal(String name, boolean canRun, boolean canSwim, boolean canFly, int maxRunDistance, int maxSwimDistance, int maxFlyDistance) {
         this.name = name;
         this.canRun = canRun;
         this.canSwim = canSwim;
         this.canFly = canFly;
-        ++count;
-    }
 
-    //<editor-fold desc="Getters&Setters">
-    protected String getType() {
-        return type;
+        if (maxRunDistance < 0) {
+            System.out.println("maxRunDistance can't be < 0, set to 0");
+            maxRunDistance = 0;
+        }
+        if (maxSwimDistance < 0) {
+            System.out.println("maxRunDistance can't be < 0, set to 0");
+            maxSwimDistance = 0;
+        }
+        if (maxFlyDistance < 0) {
+            System.out.println("maxRunDistance can't be < 0, set to 0");
+            maxFlyDistance = 0;
+        }
+
+        this.maxRunDistance = maxRunDistance;
+        this.maxSwimDistance = maxSwimDistance;
+        this.maxFlyDistance = maxFlyDistance;
+
+        ++count;
     }
 
     protected void setType(String type) {
         this.type = type;
     }
 
-    protected int getMinSwimDistance() {
-        return minSwimDistance;
-    }
-
-    protected void setMinSwimDistance(int minSwimDistance) {
-        this.minSwimDistance = minSwimDistance;
-    }
-
-    protected int getUserSetSwimDistance() {
-        return userSetSwimDistance;
-    }
-
-    protected void setUserSetSwimDistance(int userSetSwimDistance) {
-        this.userSetSwimDistance = userSetSwimDistance;
-    }
-
-    protected int getMinRunDistance() {
-        return minRunDistance;
-    }
-
-    protected void setMinRunDistance(int minRunDistance) {
-        this.minRunDistance = minRunDistance;
-    }
-
-    protected int getUserSetRunDistance() {
-        return userSetRunDistance;
-    }
-
-    protected void setUserSetRunDistance(int userSetRunDistance) {
-        this.userSetRunDistance = userSetRunDistance;
-    }
-
-    protected int getMinFlyDistance() {
-        return minFlyDistance;
-    }
-
-    protected void setMinFlyDistance(int minFlyDistance) {
-        this.minFlyDistance = minFlyDistance;
-    }
-
-    protected int getUserSetFlyDistance() {
-        return userSetFlyDistance;
-    }
-
-    protected void setUserSetFlyDistance(int userSetFlyDistance) {
-        this.userSetFlyDistance = userSetFlyDistance;
-    }
-
-    protected int getMaxSwimDistance() {
-        return maxSwimDistance;
-    }
-
-    protected void setMaxSwimDistance(int maxSwimDistance) {
-        this.maxSwimDistance = maxSwimDistance;
-    }
-
-    protected int getMaxRunDistance() {
-        return maxRunDistance;
-    }
-
-    protected void setMaxRunDistance(int maxRunDistance) {
-        this.maxRunDistance = maxRunDistance;
-    }
-
-    protected int getMaxFlyDistance() {
-        return maxFlyDistance;
-    }
-
-    protected void setMaxFlyDistance(int maxFlyDistance) {
-        this.maxFlyDistance = maxFlyDistance;
-    }
-    //</editor-fold>
-
     public final void Run(int distance) {
-        if (canRun) {
-            if (distance < maxRunDistance) {
-                System.out.println("Animal type " + type + " with name " + name + " ran " + distance);
-            } else {
-                System.out.println("Animal type " + type + " can run max distance " + maxRunDistance + ", but you want " + distance);
-            }
-        } else {
-            System.out.println("Animal type " + type + " can't run");
-        }
+        Activity(canRun, distance, maxRunDistance, "run");
     }
 
     public final void Swim(int distance) {
-        if (canSwim) {
-            if (distance < maxSwimDistance) {
-                System.out.println("Animal type " + type + " with name " + name + " swam " + distance);
-            } else {
-                System.out.println("Animal type " + type + " can swim max distance " + maxSwimDistance + ", but you want " + distance);
-            }
-        } else {
-            System.out.println("Animal type " + type + " can't swim");
-        }
+        Activity(canSwim, distance, maxSwimDistance, "swim");
     }
 
     public final void Fly(int distance) {
-        if (canFly) {
-            if (distance < maxFlyDistance) {
-                System.out.println("Animal type " + type + " with name " + name + " flew " + distance);
-            } else {
-                System.out.println("Animal type " + type + " can fly max distance " + maxSwimDistance + ", but you want " + distance);
-            }
-        } else {
-            System.out.println("Animal type " + type + " can't fly");
-        }
+        Activity(canFly, distance, maxFlyDistance, "fly");
     }
 
     public static void AnimalsCount() {
         System.out.println("You have " + count + " animals now");
+    }
+
+    private final void Activity(boolean isCan, int distance, int maxDistance, String methodName) {
+        if (isCan) {
+            if (distance < maxDistance) {
+                System.out.println("Animal type " + type + " with name " + name + ' ' + methodName + ' ' + distance);
+            } else {
+                System.out.println("Animal type " + type + " with name " + name + " can " + methodName + " max distance " + maxDistance + ", but you want " + distance);
+            }
+        } else {
+            System.out.println("Animal type " + type + " can't " + methodName + " on any distance");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Animal type " + type + " with name " + name;
     }
 }
