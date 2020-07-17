@@ -1,4 +1,4 @@
-package java_core;
+package java_base;
 
 /*
 Стандартная задача с собеседований: при помощи метода drawSpiral(int height, int weight) и двумерного массива нарисовать спиральную матрицу:
