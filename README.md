@@ -1,2 +1,2 @@
-# Java_core
-Geekbrains's java core study projects 
+# Java_gkb
+Geekbrains's java study projects 

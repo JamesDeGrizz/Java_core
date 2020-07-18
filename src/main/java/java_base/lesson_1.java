@@ -1,4 +1,4 @@
-package java_core;
+package java_base;
 
 public class lesson_1 {
 

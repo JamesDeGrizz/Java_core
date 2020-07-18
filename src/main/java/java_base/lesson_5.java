@@ -1,4 +1,4 @@
-package java_core;
+package java_base;
 
 class Employee {
     private String name = null;

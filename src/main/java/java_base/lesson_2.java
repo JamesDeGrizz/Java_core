@@ -1,4 +1,4 @@
-package java_core;
+package java_base;
 
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
