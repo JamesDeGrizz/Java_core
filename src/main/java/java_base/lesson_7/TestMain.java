@@ -2,13 +2,17 @@ package java_base.lesson_7;
 
 public class TestMain {
     public static void main(String[] args) {
-        Cat cat = new Cat("Martin", 5);
-        Plate plate = new Plate(5);
+        Cat[] cats = new Cat[5];
+        cats[0] = new Cat("Martin", 5);
+        cats[1] = new Cat("Garfield", 10);
+        cats[2] = new Cat("Simon", 5);
+        cats[3] = new Cat("Tom", 3);
+        cats[4] = new Cat("Cat", 7);
 
-        plate.info();
-        cat.eat(plate);
-        plate.info();
-        plate.addFood(3);
-        plate.info();
+        Plate plate = new Plate(21);
+
+        for (Cat cat : cats) {
+            cat.eat(plate);
+        }
     }
 }

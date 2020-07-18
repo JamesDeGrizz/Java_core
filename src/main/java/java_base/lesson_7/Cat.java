@@ -19,16 +19,26 @@ public class Cat {
     }
 
     public void eat (Plate plate) {
-        if (plate.getFood() >= appetite) {
-            satiety = true;
+        try {
+            StringBuilder bld = new StringBuilder("Cat ");
+            bld.append(this.name);
+            bld.append(" try to eat ");
+            bld.append(this.appetite);
+            bld.append(" food");
+            System.out.println(bld.toString());
             doEat(plate);
+            satiety = true;
         }
-        else {
-
+        catch (IllegalArgumentException e) {
+            StringBuilder bld = new StringBuilder("Cat ");
+            bld.append(this.name);
+            bld.append(" get this exception:\n ");
+            bld.append(e.getMessage());
+            System.out.println(bld.toString());
         }
     }
 
-    public void doEat(Plate plate) {
+    private void doEat(Plate plate) {
         plate.decreaseFood(appetite);
     }
 }

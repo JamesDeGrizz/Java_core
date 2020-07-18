@@ -30,7 +30,15 @@ public class Plate {
         return food;
     }
 
-    public void decreaseFood(int food) {
+    public void decreaseFood(int food) throws IllegalArgumentException {
+        if (this.food - food < 0) {
+            StringBuilder bld = new StringBuilder("Plate has ");
+            bld.append(this.food);
+            bld.append(" food, but you want to decrease food to ");
+            bld.append(food);
+            throw new IllegalArgumentException(bld.toString());
+        }
+
         this.food -= food;
     }
 }
