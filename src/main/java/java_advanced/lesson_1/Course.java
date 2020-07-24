@@ -24,10 +24,10 @@ public class Course {
         for (Creature creature : tm.getTeam()) {
             for (Obstacle obs : course) {
                 if (obs instanceof Wall) {
-                    creature.Jump((Wall) obs);
+                    creature.jump((Wall) obs);
                 }
                 if (obs instanceof Treadmill) {
-                    creature.Run((Treadmill) obs);
+                    creature.run((Treadmill) obs);
                 }
             }
         }

@@ -20,7 +20,7 @@ public abstract class Creature {
         results = new HashMap<String, Boolean>();
     }
 
-    public void Run(Treadmill mill) {
+    public void run(Treadmill mill) {
         StringBuilder bld = new StringBuilder();
         if (mill.getSize() < maxRunDistance) {
             bld.append(type);
@@ -38,7 +38,7 @@ public abstract class Creature {
         }
     }
 
-    public void Jump(Wall wall) {
+    public void jump(Wall wall) {
         StringBuilder bld = new StringBuilder();
         if (wall.getSize() < maxJumpDistance) {
             bld.append(type);

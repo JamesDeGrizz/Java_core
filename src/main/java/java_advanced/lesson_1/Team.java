@@ -5,15 +5,14 @@ public class Team {
     private Creature[] team;
     private final String teamName;
 
-    public Team(String teamName) {
-        teamSize = 4;
+    public Team(Creature[] teamMembers, String teamName) {
+        teamSize = teamMembers.length;
         team = new Creature[teamSize];
         this.teamName = teamName;
 
-        team[0] = new Human(50, 1);
-        team[1] = new Human(150, 2);
-        team[2] = new Cat(1500, 3);
-        team[3] = new Robot(15000, 6);
+        for (int i = 0; i < teamMembers.length; ++i) {
+            team[i] = teamMembers[i];
+        }
     }
 
     public Creature[] getTeam() {
