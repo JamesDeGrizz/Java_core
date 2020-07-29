@@ -61,7 +61,7 @@ public class TestMain {
     }
 
     private static int castAndSum(String[][] matrix) throws MyArraySizeException, MyArrayDataException {
-        if (matrix.length != theOnlyTrueSize || matrix[0].length != theOnlyTrueSize) {
+        if (matrix.length != theOnlyTrueSize) {
             throw new MyArraySizeException("the only true size must be " + theOnlyTrueSize);
         }
         for (int i = 0; i < theOnlyTrueSize; ++i) {
