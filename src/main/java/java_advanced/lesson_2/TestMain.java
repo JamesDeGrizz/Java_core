@@ -53,8 +53,13 @@ public class TestMain {
     }
 
     private static int castAndSum(String[][] matrix) {
-        if (matrix.length != theOnlyTrueSize || matrix[0].length != theOnlyTrueSize) {
+        if (matrix.length != theOnlyTrueSize) {
             throw new MyArraySizeException("the only true size must be " + theOnlyTrueSize);
+        }
+        for (int i = 0; i < theOnlyTrueSize; ++i) {
+            if (matrix[i].length != theOnlyTrueSize) {
+                throw new MyArraySizeException("the only true size must be " + theOnlyTrueSize);
+            }
         }
 
         int sum = 0;
