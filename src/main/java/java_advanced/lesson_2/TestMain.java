@@ -20,6 +20,8 @@ public class TestMain {
             System.out.println("Get MyArraySizeException with message:\n\t" + e.getMessage());
         } catch (MyArrayDataException e) {
             System.out.println("We should not get there");
+        } catch (Exception e) {
+            System.out.println("Unknown exception " + e.getMessage());
         }
 
         System.out.println("\n\nTesting wrongDataMatrix");
@@ -30,6 +32,8 @@ public class TestMain {
         } catch (MyArrayDataException e) {
             System.out.println("Get MyArrayDataException with message:\n\t" + e.getMessage());
             e.printCoordinatesOfWrongItem();
+        } catch (Exception e) {
+            System.out.println("Unknown exception " + e.getMessage());
         }
 
         System.out.println("\n\nTesting anotherWrongDataMatrix");
@@ -40,6 +44,8 @@ public class TestMain {
         } catch (MyArrayDataException e) {
             System.out.println("Get MyArrayDataException with message:\n\t" + e.getMessage());
             e.printCoordinatesOfWrongItem();
+        } catch (Exception e) {
+            System.out.println("Unknown exception " + e.getMessage());
         }
 
         System.out.println("\n\nTesting theOnlyTrueMatrix");
@@ -49,11 +55,13 @@ public class TestMain {
             System.out.println("We should not get there");
         } catch (MyArrayDataException e) {
             System.out.println("We should not get there");
+        } catch (Exception e) {
+            System.out.println("Unknown exception " + e.getMessage());
         }
     }
 
-    private static int castAndSum(String[][] matrix) {
-        if (matrix.length != theOnlyTrueSize) {
+    private static int castAndSum(String[][] matrix) throws MyArraySizeException, MyArrayDataException {
+        if (matrix.length != theOnlyTrueSize || matrix[0].length != theOnlyTrueSize) {
             throw new MyArraySizeException("the only true size must be " + theOnlyTrueSize);
         }
         for (int i = 0; i < theOnlyTrueSize; ++i) {
