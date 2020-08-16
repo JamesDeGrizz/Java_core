@@ -1,16 +1,21 @@
-package java_advanced.lesson_7.server;
+package java_advanced.lesson_7_8.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ClientHandler {
     private MyServer myServer;
     private Socket socket;
     private DataInputStream in;
     private DataOutputStream out;
+    private Timer tmr;
+
+    private boolean autorized = false;
+    private static final int timeout = 10000;
 
     private String name;
 
@@ -25,6 +30,18 @@ public class ClientHandler {
             this.in = new DataInputStream(socket.getInputStream());
             this.out = new DataOutputStream(socket.getOutputStream());
             this.name = "";
+            this.tmr = new Timer();
+            this.tmr.schedule(
+                    new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (autorized != true) {
+                                closeConnection();
+                            }
+                        }
+                    },
+                    timeout
+            );
             new Thread(() -> {
                 try {
                     authentication();
@@ -51,6 +68,7 @@ public class ClientHandler {
                         sendMsg("/authok " + nick);
                         name = nick;
                         myServer.subscribe(this);
+                        autorized = true;
                         return;
                     } else {
                         sendMsg("Учетная запись уже используется");
