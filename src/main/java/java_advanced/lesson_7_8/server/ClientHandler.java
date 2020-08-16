@@ -14,8 +14,8 @@ public class ClientHandler {
     private DataOutputStream out;
     private Timer tmr;
 
-    private boolean autorized = false;
-    private static final int timeout = 10000;
+    private boolean authorized = false;
+    private static final int timeout = 120000;
 
     private String name;
 
@@ -35,7 +35,7 @@ public class ClientHandler {
                     new TimerTask() {
                         @Override
                         public void run() {
-                            if (autorized != true) {
+                            if (authorized != true) {
                                 closeConnection();
                             }
                         }
@@ -68,7 +68,7 @@ public class ClientHandler {
                         sendMsg("/authok " + nick);
                         name = nick;
                         myServer.subscribe(this);
-                        autorized = true;
+                        authorized = true;
                         return;
                     } else {
                         sendMsg("Учетная запись уже используется");
