@@ -10,7 +10,7 @@ public class Box <T extends Fruit> {
     }
 
     public double getWeight() {
-        throw new UnsupportedOperationException();
+        return fruits.size() == 0 ? 0 : fruits.get(0).getWeight() * fruits.size();
     }
 
     public boolean compare(Box another) {
@@ -20,7 +20,13 @@ public class Box <T extends Fruit> {
         return getWeight() == another.getWeight();
     }
 
-    public void pour(Box<?> target) {
-        throw new UnsupportedOperationException();
+    public void pour(Box<T> target) {
+        if (target == null) {
+            throw new NullPointerException("Argument \"target\" is null");
+        }
+        for (T fruit : fruits) {
+            target.add(fruit);
+        }
+        fruits.clear();
     }
 }
