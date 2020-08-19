@@ -1,6 +1,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="java_advanced.lesson_7.client.Controller"
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="java_advanced.lesson_7_8.client.Controller"
       alignment="center">
     <HBox fx:id="authPanel">
         <TextField HBox.hgrow="ALWAYS" fx:id="loginField" promptText="Логин"/>

@@ -1,4 +1,4 @@
-package java_advanced.lesson_7.server;
+package java_advanced.lesson_7_8.server;
 
 public interface AuthService {
     void start();

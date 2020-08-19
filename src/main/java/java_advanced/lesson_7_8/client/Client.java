@@ -1,4 +1,4 @@
-package java_advanced.lesson_7.client;
+package java_advanced.lesson_7_8.client;
 
 import javafx.application.Application;
 import javafx.application.Platform;
