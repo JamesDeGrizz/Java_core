@@ -1,4 +1,4 @@
-package java_advanced.lesson_7_8.client;
+package client;
 
 @FunctionalInterface
 public interface Callback {

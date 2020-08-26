@@ -7,7 +7,11 @@
     <groupId>ru.geekbrains.JamesDeGrizz.java_gkb</groupId>
     <artifactId>java_gkb</artifactId>
     <version>0.2</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>src/main/java/chat</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

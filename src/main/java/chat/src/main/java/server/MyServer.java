@@ -1,4 +1,4 @@
-package java_advanced.lesson_7_8.server;
+package server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

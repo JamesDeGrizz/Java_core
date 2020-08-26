@@ -1,4 +1,4 @@
-package java_advanced.lesson_7_8.server;
+package server;
 
 public class ServerApp {
     public static void main(String[] args) {

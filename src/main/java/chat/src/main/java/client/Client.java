@@ -1,4 +1,4 @@
-package java_advanced.lesson_7_8.client;
+package client;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class Client extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/java_advanced/lesson_7/client.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/client.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("BrainsChat Client");
         primaryStage.setScene(new Scene(root, 400, 400));
