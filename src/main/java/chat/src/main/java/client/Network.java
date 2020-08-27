@@ -41,6 +41,15 @@ public class Network implements Closeable {
         }
     }
 
+    public void sendReg(String login, String password, String nick) {
+        try {
+            connect();
+            out.writeUTF("/reg " + login + " " + password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void connect() {
         if (socket != null && !socket.isClosed()) {
             return;

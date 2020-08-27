@@ -18,7 +18,8 @@ public class MyServer {
 
     public MyServer() {
         try (ServerSocket server = new ServerSocket(PORT)) {
-            authService = new BaseAuthService();
+//            authService = new BaseAuthService();
+            authService = new DatabaseAuthService("users.db");
             authService.start();
             clients = new HashMap<>();
 
