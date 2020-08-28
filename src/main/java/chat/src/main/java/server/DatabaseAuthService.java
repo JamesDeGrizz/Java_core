@@ -41,11 +41,11 @@ public class DatabaseAuthService implements AuthService {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append("SELECT * FROM users ");
-            sb.append("WHERE login = ");
+            sb.append("WHERE login = '");
             sb.append(login);
-            sb.append(" AND pass = ");
+            sb.append("' AND pass = '");
             sb.append(pass);
-            sb.append(");");
+            sb.append("';");
 
             ResultSet result = stmt.executeQuery(sb.toString());
             if (result.next()) {

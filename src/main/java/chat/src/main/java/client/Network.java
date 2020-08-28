@@ -44,7 +44,7 @@ public class Network implements Closeable {
     public void sendReg(String login, String password, String nick) {
         try {
             connect();
-            out.writeUTF("/reg " + login + " " + password);
+            out.writeUTF("/reg " + login + " " + password + " " + nick);
         } catch (IOException e) {
             e.printStackTrace();
         }

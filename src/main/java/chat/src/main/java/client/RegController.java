@@ -29,6 +29,9 @@ public class RegController {
         controller.tryToReg(loginField.getText().trim()
                 , passwordField.getText().trim()
                 , nicknameField.getText().trim());
+        loginField.clear();
+        passwordField.clear();
+        nicknameField.clear();
     }
 
     public void clickCancelBtn(ActionEvent actionEvent) {

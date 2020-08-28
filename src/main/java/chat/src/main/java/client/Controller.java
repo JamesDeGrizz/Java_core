@@ -86,18 +86,8 @@ public class Controller implements Initializable {
     }
 
     public void tryToReg(String login, String password, String nickname) {
-        network.sendReg(loginField.getText(), passField.getText());
-        loginField.clear();
-        passField.clear();
-//        if (socket == null || socket.isClosed()) {
-//            connect();
-//        }
-//
-//        try {
-//            out.writeUTF(String.format("/reg %s %s %s", login, password, nickname));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        network.sendReg(login, password, nickname);
+        regStage.hide();
     }
 
     public void sendExit() {
