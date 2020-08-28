@@ -50,8 +50,6 @@ public class Controller implements Initializable {
         if (!authenticated) {
             nickname = "";
         }
-
-        regStage = createRegWindow();
     }
 
     @Override
@@ -60,6 +58,7 @@ public class Controller implements Initializable {
         createNetwork();
         network.connect();
         passField.requestFocus();
+        regStage = createRegWindow();
 
         clientsList.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {

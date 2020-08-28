@@ -49,7 +49,8 @@ public class DatabaseAuthService implements AuthService {
 
             ResultSet result = stmt.executeQuery(sb.toString());
             if (result.next()) {
-                return result.getString(3);
+                String dbg = result.getString(4);
+                return dbg;
             }
         }
         catch (SQLException e) {
