@@ -1,11 +1,18 @@
 package client;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,7 +24,7 @@ public class Controller implements Initializable {
     TextField msgField, loginField;
 
     @FXML
-    HBox msgPanel, authPanel, infoPanel;
+    HBox msgPanel, authPanel, infoPanel, btnPanel;
 
     @FXML
     PasswordField passField;
@@ -25,12 +32,17 @@ public class Controller implements Initializable {
     @FXML
     ListView<String> clientsList;
 
+    private Stage regStage;
+    RegController regController;
+
     private Network network;
     private String nickname;
 
     public void setAuthenticated(boolean authenticated) {
         authPanel.setVisible(!authenticated);
         authPanel.setManaged(!authenticated);
+        btnPanel.setVisible(!authenticated);
+        btnPanel.setManaged(!authenticated);
         msgPanel.setVisible(authenticated);
         msgPanel.setManaged(authenticated);
         infoPanel.setVisible(authenticated);
@@ -46,6 +58,7 @@ public class Controller implements Initializable {
         createNetwork();
         network.connect();
         passField.requestFocus();
+        regStage = createRegWindow();
 
         clientsList.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
@@ -69,6 +82,11 @@ public class Controller implements Initializable {
             msgField.clear();
             msgField.requestFocus();
         }
+    }
+
+    public void tryToReg(String login, String password, String nickname) {
+        network.sendReg(login, password, nickname);
+        regStage.hide();
     }
 
     public void sendExit() {
@@ -111,5 +129,28 @@ public class Controller implements Initializable {
                 textArea.appendText(msg + "\n");
             }
         });
+    }
+
+    public void showRegWindow(ActionEvent actionEvent) {
+        regStage.show();
+    }
+
+    private Stage createRegWindow() {
+        Stage stage = new Stage();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/reg.fxml"));
+            Parent root = fxmlLoader.load();
+
+            stage.setTitle("Chat reg window");
+            stage.setScene(new Scene(root, 350, 250));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            regController = fxmlLoader.getController();
+            regController.setController(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stage;
     }
 }

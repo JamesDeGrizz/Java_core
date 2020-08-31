@@ -32,6 +32,11 @@ public class BaseAuthService implements AuthService {
         return null;
     }
 
+    @Override
+    public void addNewUser(String login, String pass, String nick) {
+        System.out.println("Not implemented yet");
+    }
+
     private static class Entry {
         private String login;
         private String pass;

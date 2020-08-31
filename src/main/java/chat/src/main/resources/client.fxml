@@ -5,7 +5,10 @@
     <HBox fx:id="authPanel">
         <TextField HBox.hgrow="ALWAYS" fx:id="loginField" promptText="Логин"/>
         <PasswordField HBox.hgrow="ALWAYS" fx:id="passField" promptText="Пароль" onAction="#sendAuth"/>
+    </HBox>
+    <HBox fx:id="btnPanel">
         <Button HBox.hgrow="ALWAYS" text="Подключиться" onAction="#sendAuth"/>
+        <Button HBox.hgrow="ALWAYS" text="Регистрация" onAction="#showRegWindow"/>
     </HBox>
 
     <HBox fx:id="infoPanel" VBox.vgrow="ALWAYS">

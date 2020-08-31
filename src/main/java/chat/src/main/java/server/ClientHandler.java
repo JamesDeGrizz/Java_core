@@ -77,6 +77,11 @@ public class ClientHandler {
                     sendMsg("Неверные логин/пароль");
                 }
             }
+
+            if (str.startsWith("/reg")) {
+                String[] parts = str.split("\\s");
+                myServer.getAuthService().addNewUser(parts[1], parts[2], parts[3]);
+            }
         }
     }
 
