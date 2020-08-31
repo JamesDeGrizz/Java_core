@@ -10,37 +10,37 @@ import javafx.stage.Stage;
 
 public class RegController {
 
-    private Controller controller;
+	private Controller controller;
 
-    public void setController(Controller controller) {
-        this.controller = controller;
-    }
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
 
-    @FXML
-    public TextArea textArea;
-    @FXML
-    public TextField loginField;
-    @FXML
-    public PasswordField passwordField;
-    @FXML
-    public TextField nicknameField;
+	@FXML
+	public TextArea textArea;
+	@FXML
+	public TextField loginField;
+	@FXML
+	public PasswordField passwordField;
+	@FXML
+	public TextField nicknameField;
 
-    public void tryToReg(ActionEvent actionEvent) {
-        controller.tryToReg(loginField.getText().trim()
-                , passwordField.getText().trim()
-                , nicknameField.getText().trim());
-        loginField.clear();
-        passwordField.clear();
-        nicknameField.clear();
-    }
+	public void tryToReg(ActionEvent actionEvent) {
+		controller.tryToReg(loginField.getText().trim()
+				, passwordField.getText().trim()
+				, nicknameField.getText().trim());
+		loginField.clear();
+		passwordField.clear();
+		nicknameField.clear();
+	}
 
-    public void clickCancelBtn(ActionEvent actionEvent) {
-        Platform.runLater(() -> {
-            ((Stage) loginField.getScene().getWindow()).close();
-        });
-    }
+	public void clickCancelBtn(ActionEvent actionEvent) {
+		Platform.runLater(() -> {
+			((Stage) loginField.getScene().getWindow()).close();
+		});
+	}
 
-    public void addMessage(String msg) {
-        textArea.appendText(msg+"\n");
-    }
+	public void addMessage(String msg) {
+		textArea.appendText(msg + "\n");
+	}
 }
