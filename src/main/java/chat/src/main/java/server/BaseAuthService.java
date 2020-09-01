@@ -37,6 +37,11 @@ public class BaseAuthService implements AuthService {
         System.out.println("Not implemented yet");
     }
 
+    @Override
+    public void changeNickname(String currentNick, String newNick) {
+        throw new RuntimeException("Not implemented yet");
+    }
+
     private static class Entry {
         private String login;
         private String pass;

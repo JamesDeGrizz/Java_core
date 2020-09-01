@@ -38,7 +38,9 @@ public class Controller implements Initializable {
 
     private Stage regStage;
     RegController regController;
-    ChangeNickname nickChange;
+
+    private Stage nickChangerStage;
+    NicknameChangerController nickChangeController;
 
     private Network network;
     private String nickname;
@@ -66,7 +68,7 @@ public class Controller implements Initializable {
         network.connect();
         passField.requestFocus();
         regStage = createRegWindow();
-        nickChange = createNicknameChanger();
+        nickChangerStage = createNicknameChanger();
 
         clientsList.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
@@ -77,21 +79,20 @@ public class Controller implements Initializable {
                 }
             }
         );
-
-
     }
 
-    private ChangeNickname createNicknameChanger() {
+    private Stage createNicknameChanger() {
+        Stage stage = new Stage();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/nicknameChanger.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/nickChanger.fxml"));
             Parent root = fxmlLoader.load();
 
-            stage.setTitle("Chat reg window");
+            stage.setTitle("Напишите свой новый ник");
             stage.setScene(new Scene(root, 350, 250));
             stage.initModality(Modality.APPLICATION_MODAL);
 
-            regController = fxmlLoader.getController();
-            regController.setController(this);
+            nickChangeController = fxmlLoader.getController();
+            nickChangeController.setController(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,6 +111,12 @@ public class Controller implements Initializable {
             msgField.clear();
             msgField.requestFocus();
         }
+    }
+
+    public void sendNewNick(String newNick) {
+        network.sendChangeNick(nickname, newNick);
+        nickname = newNick;
+        nickChangerStage.hide();
     }
 
     public void tryToReg(String login, String password, String nickname) {
@@ -163,6 +170,10 @@ public class Controller implements Initializable {
         regStage.show();
     }
 
+    public void showNickChangerWindow(ActionEvent actionEvent) {
+        nickChangerStage.show();
+    }
+
     private Stage createRegWindow() {
         Stage stage = new Stage();
         try {
@@ -180,10 +191,6 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         return stage;
-    }
-
-    public void changeNick(ActionEvent actionEvent) {
-
     }
 
     public void closeApp(ActionEvent actionEvent) {

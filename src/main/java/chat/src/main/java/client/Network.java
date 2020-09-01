@@ -50,6 +50,18 @@ public class Network implements Closeable {
         }
     }
 
+    public void sendChangeNick(String currentNick, String newNick) {
+        if (socket == null || socket.isClosed() || out == null) {
+            return;
+        }
+
+        try {
+            out.writeUTF("/changenick " + currentNick + " " + newNick);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void connect() {
         if (socket != null && !socket.isClosed()) {
             return;

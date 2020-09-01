@@ -1,0 +1,15 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:controller="client.NicknameChangerController" xmlns:fx="http://javafx.com/fxml" alignment="center" >
+    <VBox alignment="center">
+        <Label text="Новый ник" />
+        <TextField fx:id="nickField" promptText="new nick"/>
+
+        <HBox alignment="CENTER">
+            <Button text="ОК" onAction="#clickOKButton" minWidth="50"/>
+            <Button text="Отмена" onAction="#clickCancelBtn" minWidth="50"/>
+        </HBox>
+    </VBox>
+
+</VBox>

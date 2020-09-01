@@ -79,6 +79,16 @@ public class MyServer {
         return from + ": " + msg;
     }
 
+    public synchronized void changeNickname(String currentNick, String newNick) {
+        authService.changeNickname(currentNick, newNick);
+        ClientHandler current = clients.get(currentNick);
+        clients.remove(currentNick);
+        clients.put(newNick, current);
+
+        current.setName(newNick);
+        broadcastClients();
+    }
+
     public synchronized void broadcastClients() {
         StringBuilder builder = new StringBuilder("/clients ");
         for (String nick : clients.keySet()) {

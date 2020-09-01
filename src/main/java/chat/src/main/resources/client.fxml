@@ -10,7 +10,7 @@
     <MenuBar fx:id="menubar">
         <menus>
             <Menu text="Файл">
-                <MenuItem text="Сменить ник" onAction="#changeNick" />
+                <MenuItem text="Сменить ник" onAction="#showNickChangerWindow" />
                 <MenuItem text="Закрыть" onAction="#closeApp" />
             </Menu>
         </menus>
