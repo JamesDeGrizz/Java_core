@@ -76,7 +76,9 @@ public class Network implements Closeable {
                     while (true) {
                         String msg = in.readUTF();
                         if (msg.startsWith("/authok ")) {
-                            callOnAuthenticated.callback(msg.split("\\s")[1]);
+                            String nick = msg.split("\\s")[1];
+                            String login = msg.split("\\s")[2];
+                            callOnAuthenticated.callback(nick, login);
                             break;
                         } else {
                             callOnException.callback(msg);

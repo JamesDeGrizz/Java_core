@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
@@ -47,6 +46,7 @@ public class Controller implements Initializable {
 
 	private Network network;
 	private String nickname;
+	private String login;
 
 	public void setAuthenticated(boolean authenticated) {
 		authPanel.setVisible(!authenticated);
@@ -61,6 +61,7 @@ public class Controller implements Initializable {
 		infoPanel.setManaged(authenticated);
 		if (!authenticated) {
 			nickname = "";
+			login = "";
 		}
 	}
 
@@ -118,7 +119,6 @@ public class Controller implements Initializable {
 
 	public void sendNewNick(String newNick) {
 		network.sendChangeNick(nickname, newNick);
-		renameHistoryFile(nickname, newNick);
 		nickname = newNick;
 		nickChangerStage.hide();
 	}
@@ -148,6 +148,7 @@ public class Controller implements Initializable {
 		network.setCallOnAuthenticated(args -> {
 			setAuthenticated(true);
 			nickname = args[0];
+			login = args[1];
 			loadOrCreateHistoryFile();
 		});
 
@@ -206,27 +207,32 @@ public class Controller implements Initializable {
 	}
 
 	private void loadOrCreateHistoryFile() {
-		File history = new File("history_" + nickname + ".txt");
+		File history = new File("history_" + login + ".txt");
 
 		try {
 			if (history.exists()) {
 				FileReader reader = new FileReader(history);
 
 				BufferedReader br = new BufferedReader(reader);
-				long lineNumber = Files.lines(Paths.get("history_" + nickname + ".txt")).count();
+				long lineNumber = Files.lines(Paths.get(history.getName())).count();
 				long currentLineNumber = 0;
-				while (currentLineNumber <= (lineNumber - 100)) {
+				while (currentLineNumber < (lineNumber - 100)) {
 					br.readLine();
 					++currentLineNumber;
 				}
 
 				String fileLine;
+				StringBuilder bld = new StringBuilder();
 				while ((fileLine = br.readLine()) != null) {
-					textArea.appendText(fileLine);
+					bld.append(fileLine);
 					if (!fileLine.endsWith("\n")) {
-						textArea.appendText("\n");
+						bld.append("\n");
 					}
 				}
+
+				textArea.appendText(bld.toString());
+				br.close();
+				reader.close();
 			} else {
 				history.createNewFile();
 			}
@@ -239,15 +245,8 @@ public class Controller implements Initializable {
 		}
 	}
 
-	private void renameHistoryFile(String oldNick, String newNick) {
-		File oldHistory = new File("history_" + oldNick + ".txt");
-		File newHistory = new File("history_" + newNick + ".txt");
-
-		oldHistory.renameTo(newHistory);
-	}
-
 	private void addToHistory(String text) {
-		File history = new File("history_" + nickname + ".txt");
+		File history = new File("history_" + login + ".txt");
 
 		try {
 			if (history.exists()) {
@@ -257,6 +256,8 @@ public class Controller implements Initializable {
 				if (!text.endsWith("\n")) {
 					out.write("\n".getBytes());
 				}
+
+				out.close();
 			}
 		} catch (FileNotFoundException e) {
 			e.getMessage();
