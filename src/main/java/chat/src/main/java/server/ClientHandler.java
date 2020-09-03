@@ -70,7 +70,7 @@ public class ClientHandler {
 				String nick = myServer.getAuthService().getNickByLoginPass(parts[1], parts[2]);
 				if (nick != null) {
 					if (!myServer.isNickBusy(nick)) {
-						sendMsg("/authok " + nick);
+						sendMsg("/authok " + nick + ' ' + parts[1]);
 						name = nick;
 						myServer.subscribe(this);
 						authorized = true;
