@@ -37,6 +37,7 @@ public class DatabaseAuthService implements AuthService {
         System.out.println("Сервис аутентификации остановлен");
     }
 
+    @Override
     public String getNickByLoginPass(String login, String pass) {
         try {
             StringBuilder sb = new StringBuilder();
@@ -61,6 +62,7 @@ public class DatabaseAuthService implements AuthService {
         return null;
     }
 
+    @Override
     public void addNewUser(String login, String pass, String nick) {
         try {
             StringBuilder sb = new StringBuilder();
@@ -72,6 +74,24 @@ public class DatabaseAuthService implements AuthService {
             sb.append("', '");
             sb.append(nick);
             sb.append("');");
+
+            stmt.executeUpdate(sb.toString());
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+    }
+
+    @Override
+    public void changeNickname(String currentNick, String newNick) {
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append("UPDATE users SET nick = '");
+            sb.append(newNick);
+            sb.append("' WHERE nick = '");
+            sb.append(currentNick);
+            sb.append("';");
 
             stmt.executeUpdate(sb.toString());
         }

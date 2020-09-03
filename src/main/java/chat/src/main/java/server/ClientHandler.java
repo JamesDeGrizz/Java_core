@@ -23,6 +23,11 @@ public class ClientHandler {
 		return name;
 	}
 
+	public void setName(String newName) {
+		myServer.broadcastMsg(name, "Я поменял ник на " + newName);
+		name = newName;
+	}
+
 	public ClientHandler(MyServer myServer, Socket socket) {
 		try {
 			this.myServer = myServer;
@@ -99,9 +104,17 @@ public class ClientHandler {
 					result.append(words[i] + " ");
 				}
 				myServer.privateMsg(name, words[1], result.toString());
-			} else {
-				myServer.broadcastMsg(name, strFromClient);
+
+				continue;
 			}
+
+			if (words[0].equals("/changenick")) {
+				myServer.changeNickname(words[1], words[2]);
+
+				continue;
+			}
+
+			myServer.broadcastMsg(name, strFromClient);
 		}
 	}
 

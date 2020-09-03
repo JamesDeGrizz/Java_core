@@ -6,6 +6,16 @@
         <TextField HBox.hgrow="ALWAYS" fx:id="loginField" promptText="Логин"/>
         <PasswordField HBox.hgrow="ALWAYS" fx:id="passField" promptText="Пароль" onAction="#sendAuth"/>
     </HBox>
+
+    <MenuBar fx:id="menubar">
+        <menus>
+            <Menu text="Файл">
+                <MenuItem text="Сменить ник" onAction="#showNickChangerWindow" />
+                <MenuItem text="Закрыть" onAction="#closeApp" />
+            </Menu>
+        </menus>
+    </MenuBar>
+
     <HBox fx:id="btnPanel">
         <Button HBox.hgrow="ALWAYS" text="Подключиться" onAction="#sendAuth"/>
         <Button HBox.hgrow="ALWAYS" text="Регистрация" onAction="#showRegWindow"/>

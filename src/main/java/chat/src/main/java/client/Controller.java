@@ -17,6 +17,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+
+    @FXML
+    MenuBar menubar;
+
     @FXML
     TextArea textArea;
 
@@ -35,6 +39,9 @@ public class Controller implements Initializable {
     private Stage regStage;
     RegController regController;
 
+    private Stage nickChangerStage;
+    NicknameChangerController nickChangeController;
+
     private Network network;
     private String nickname;
 
@@ -43,6 +50,8 @@ public class Controller implements Initializable {
         authPanel.setManaged(!authenticated);
         btnPanel.setVisible(!authenticated);
         btnPanel.setManaged(!authenticated);
+        menubar.setVisible(authenticated);
+        menubar.setManaged(authenticated);
         msgPanel.setVisible(authenticated);
         msgPanel.setManaged(authenticated);
         infoPanel.setVisible(authenticated);
@@ -59,6 +68,7 @@ public class Controller implements Initializable {
         network.connect();
         passField.requestFocus();
         regStage = createRegWindow();
+        nickChangerStage = createNicknameChanger();
 
         clientsList.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
@@ -69,6 +79,25 @@ public class Controller implements Initializable {
                 }
             }
         );
+    }
+
+    private Stage createNicknameChanger() {
+        Stage stage = new Stage();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/nickChanger.fxml"));
+            Parent root = fxmlLoader.load();
+
+            stage.setTitle("Напишите свой новый ник");
+            stage.setScene(new Scene(root, 350, 250));
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            nickChangeController = fxmlLoader.getController();
+            nickChangeController.setController(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stage;
     }
 
     public void sendAuth() {
@@ -82,6 +111,12 @@ public class Controller implements Initializable {
             msgField.clear();
             msgField.requestFocus();
         }
+    }
+
+    public void sendNewNick(String newNick) {
+        network.sendChangeNick(nickname, newNick);
+        nickname = newNick;
+        nickChangerStage.hide();
     }
 
     public void tryToReg(String login, String password, String nickname) {
@@ -135,6 +170,10 @@ public class Controller implements Initializable {
         regStage.show();
     }
 
+    public void showNickChangerWindow(ActionEvent actionEvent) {
+        nickChangerStage.show();
+    }
+
     private Stage createRegWindow() {
         Stage stage = new Stage();
         try {
@@ -152,5 +191,11 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         return stage;
+    }
+
+    public void closeApp(ActionEvent actionEvent) {
+        this.sendExit();
+        Platform.exit();
+        System.exit(0);
     }
 }
