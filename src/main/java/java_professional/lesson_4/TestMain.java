@@ -1,90 +1,76 @@
 package java_professional.lesson_4;
 
 public class TestMain {
-    private final Object guardA = new Object();
-    private final Object guardB = new Object();
-    private final Object guardC = new Object();
-    private int threadId = 1;
+	private Object guard = new Object();
+	private volatile int threadId = 1;
 
-    public static void main(String[] args) {
-        TestMain tm = new TestMain();
-        Thread a = new Thread(() -> {
-            tm.printA();
-        });
+	public static void main(String[] args) {
+		TestMain tm = new TestMain();
+		Thread a = new Thread(() -> {
+			tm.printA();
+		});
 
-        Thread b = new Thread(() -> {
-            tm.printB();
-        });
+		Thread b = new Thread(() -> {
+			tm.printB();
+		});
 
-        Thread c = new Thread(() -> {
-            tm.printC();
-        });
+		Thread c = new Thread(() -> {
+			tm.printC();
+		});
 
-        a.start();
-        b.start();
-        c.start();
-    }
+		a.start();
+		b.start();
+		c.start();
+	}
 
-    private void printA() {
-            for (int i = 0; i < 5; ++i) {
-                while (threadId != 1) {
-                    try {
-                        synchronized (guardA) {
-                            guardA.wait();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+	private void printA() {
+		try {
+			for (int i = 0; i < 5; ++i) {
+				synchronized (guard) {
+					while (threadId != 1) {
+						guard.wait();
+					}
+					System.out.println('A');
+					threadId = 2;
+					guard.notifyAll();
+				}
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
-                System.out.println('A');
-                threadId = 2;
-                synchronized (guardB) {
-                    guardB.notify();
-                }
-            }
+	private void printB() {
+		try {
+			for (int i = 0; i < 5; ++i) {
+				synchronized (guard) {
+					while (threadId != 2) {
+						guard.wait();
+					}
+					System.out.println('B');
+					threadId = 3;
+					guard.notifyAll();
+				}
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
-    }
-
-    private void printB() {
-            for (int i = 0; i < 5; ++i) {
-                while (threadId != 2) {
-                    try {
-                        synchronized (guardB) {
-                            guardB.wait();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                System.out.println('B');
-                threadId = 3;
-                synchronized (guardC) {
-                    guardC.notify();
-                }
-            }
-
-    }
-
-    private void printC() {
-            for (int i = 0; i < 5; ++i) {
-                while (threadId != 3) {
-                    try {
-                        synchronized (guardC) {
-                            guardC.wait();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                System.out.println('C');
-                threadId = 1;
-                synchronized (guardA) {
-                    guardA.notify();
-                }
-            }
-
-    }
+	private void printC() {
+		try {
+			for (int i = 0; i < 5; ++i) {
+				synchronized (guard) {
+					while (threadId != 3) {
+						guard.wait();
+					}
+					System.out.println('C');
+					threadId = 1;
+					guard.notifyAll();
+				}
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 }
