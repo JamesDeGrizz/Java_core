@@ -1,6 +1,7 @@
 package java_professional.lesson_5;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.locks.Lock;
 
 public class Car implements Runnable {
@@ -9,7 +10,8 @@ public class Car implements Runnable {
     private Race race;
     private int speed;
     private String name;
-    private CountDownLatch cdlReady;
+    private CyclicBarrier cbReady;
+    private CountDownLatch cdlStart;
     private CountDownLatch cdlFinished;
     private Lock winner;
 
@@ -21,10 +23,11 @@ public class Car implements Runnable {
         return speed;
     }
 
-    public Car(Race race, int speed, CountDownLatch cdlReady, Lock winner, CountDownLatch cdlFinished) {
+    public Car(Race race, int speed, CyclicBarrier cbReady, CountDownLatch cdlStart, Lock winner, CountDownLatch cdlFinished) {
         this.race = race;
         this.speed = speed;
-        this.cdlReady = cdlReady;
+        this.cbReady = cbReady;
+        this.cdlStart = cdlStart;
         this.cdlFinished = cdlFinished;
         this.winner = winner;
 
@@ -38,8 +41,8 @@ public class Car implements Runnable {
             System.out.println(this.name + " готовится");
             Thread.sleep(500 + (int)(Math.random() * 800));
             System.out.println(this.name + " готов");
-            cdlReady.countDown();
-            cdlReady.await();
+            cbReady.await();
+            cdlStart.await();
         } catch (Exception e) {
             e.printStackTrace();
         }
